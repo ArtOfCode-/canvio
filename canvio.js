@@ -29,7 +29,7 @@ canvio.Image = function() {
     },
 
     setPattern: function(red, green, blue, alpha) {
-      checkWH();
+      checkWH(this);
       for (var y = 0; y < this.height; y++) {
         for (var x = 0; x < this.width; x++) {
           setPixel(imageData, x, y, red.call(this, x, y), green.call(this, x, y), blue.call(this, x, y), alpha.call(this, x, y));
