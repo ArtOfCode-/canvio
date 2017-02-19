@@ -36,6 +36,14 @@ canvio.Image = function() {
         }
       }
       ctx.putImageData(imageData, 0, 0);
+    },
+
+    setSource: function(url) {
+      var img = document.createElement("image");
+      img.onload = function() {
+        ctx.drawImage(img, 0, 0);
+      };
+      img.src = url;
     }
   };
 }
