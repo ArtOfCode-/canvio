@@ -1,3 +1,4 @@
 test.html
 test.js
 npm-debug.log
+node_modules/*

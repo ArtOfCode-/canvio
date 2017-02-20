@@ -1,6 +1,8 @@
 {
   "name": "canvio",
   "version": "0.2.2",
+  "repository": "https://github.com/ArtOfCode-/canvio",
+  "license": "MIT",
   "scripts": {
     "test": "xo"
   },
