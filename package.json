@@ -1,0 +1,10 @@
+{
+  "name": "canvio",
+  "version": "0.1.0",
+  "scripts": {
+    "test": "xo"
+  },
+  "devDependencies": {
+    "xo": "^0.17.0"
+  }
+}
