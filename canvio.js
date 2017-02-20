@@ -110,6 +110,19 @@ canvio.Turtle = function(context) {
 
     right: function(turn) {
       heading = (heading + turn) % 360;
+    },
+
+    setColor: function(newColor) {
+      color = newColor;
+      ctx.strokeStyle = newColor;
+    },
+
+    setLineWidth: function(newWidth) {
+      ctx.lineWidth = newWidth;
+    },
+
+    goTo: function(x, y) {
+      ctx.moveTo(x, y);
     }
   };
 };
