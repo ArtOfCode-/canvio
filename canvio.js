@@ -122,6 +122,9 @@ canvio.Position = function(x, y) {
   };
 };
 
+/**
+ * A type providing functionality for working with images on the canvas, either remotely-sourced or pattern-generated.
+ */
 canvio.Image = function() {
   var ctx;
   var imageData;
@@ -142,6 +145,13 @@ canvio.Image = function() {
   }
 
   return {
+    /**
+     * Initialises this instance with a canvas context, width, and height.
+     *
+     * @param context a CanvasRenderingContext2D object
+     * @param width the width of the image to be loaded
+     * @param height the height of the image to be loaded
+     */
     init: function(context, width, height) {
       this.height = height;
       this.width = width;
@@ -149,6 +159,14 @@ canvio.Image = function() {
       imageData = ctx.createImageData(width, height);
     },
 
+    /**
+     * Displays an image on the canvas constructed pixel-by-pixel based on X-Y RGBA functions.
+     *
+     * @param red   a function that returns the amount of red in a given (x, y) pixel
+     * @param green a function that returns the amount of green in a given (x, y) pixel
+     * @param blue  a function that returns the amount of blue in a given (x, y) pixel
+     * @param alpha a function that returns the amount of alpha (transparency) in a given (x, y) pixel
+     */
     setPattern: function(red, green, blue, alpha) {
       checkWH(this);
       for (var y = 0; y < this.height; y++) {
@@ -159,6 +177,11 @@ canvio.Image = function() {
       ctx.putImageData(imageData, 0, 0);
     },
 
+    /**
+     * Loads and displays an image from a remote URL.
+     *
+     * @param url the URL to load image data from
+     */
     setSource: function(url) {
       var img = new Image();
       img.onload = function() {
@@ -169,6 +192,11 @@ canvio.Image = function() {
   };
 };
 
+/**
+ * A type providing turtle operations, mimicking Python's turtle module.
+ *
+ * @param context a CanvasRenderingContext2D object
+ */
 canvio.Turtle = function(context) {
   var ctx = context;
   var penState = 'down';
@@ -180,18 +208,23 @@ canvio.Turtle = function(context) {
 
   var heading = 0;
 
+  // Converts from degrees to radians, because the Math trig functions work on radians.
   function rad(deg) {
     return deg * (Math.PI / 180);
   }
 
+  // Calculates an angle to the x-axis based on a heading (i.e. angle from the Y axis). Yes, this formula does work.
+  // Graph it. y = mod(x + 90, 360) - 180
   function tox(hdg) {
     return ((hdg + 90) % 360) - 180;
   }
 
+  // Calculates the change in x position for a movement of d units and angle tx to the X axis.
   function dx(tx, d) {
     return d * Math.cos(rad(tx));
   }
 
+  // Calculates the change in y position for a movement of d units and angle tx to the X axis.
   function dy(tx, d) {
     return d * Math.sin(rad(tx));
   }
@@ -200,14 +233,25 @@ canvio.Turtle = function(context) {
   ctx.moveTo(pos.x, pos.y);
 
   return {
+    /**
+     * Puts the virtual pen down - that is, any movements will now cause lines to be drawn.
+     */
     penDown: function() {
       penState = 'down';
     },
 
+    /**
+     * Pulls the virtual pen up - any subsequent movements will be invisible.
+     */
     penUp: function() {
       penState = 'up';
     },
 
+    /**
+     * Moves the turtle forward.
+     *
+     * @param amount the amount in pixels to move by
+     */
     forward: function(amount) {
       pos.x += dx(tox(heading), amount);
       pos.y += dy(tox(heading), amount);
@@ -220,28 +264,58 @@ canvio.Turtle = function(context) {
       }
     },
 
+    /**
+     * Moves the turtle backward.
+     *
+     * @param amount the amount in pixels to move by.
+     */
     backward: function(amount) {
       this.forward(-amount);
     },
 
+    /**
+     * Turns the turtle left (anti-clockwise).
+     *
+     * @param turn the number of degrees to turn
+     */
     left: function(turn) {
       heading = (heading + (360 - turn)) % 360;
     },
 
+    /**
+     * Turns the turtle right (clockwise).
+     *
+     * @param turn the number of degrees to turn
+     */
     right: function(turn) {
       heading = (heading + turn) % 360;
     },
 
+    /**
+     * Sets the color of lines the turtle leaves behind.
+     *
+     * @param newColor the color to apply to subsequent lines
+     */
     setColor: function(newColor) {
       ctx.strokeStyle = newColor;
     },
 
+    /**
+     * Sets the width of lines the turtle leaves behind.
+     *
+     * @param newWidth the width to apply to subsequent lines
+     */
     setLineWidth: function(newWidth) {
       ctx.lineWidth = newWidth;
     },
 
-    goTo: function(x, y) {
-      ctx.moveTo(x, y);
+    /**
+     * Moves the turtle to a new location without leaving a trail behind, regardless of pen state.
+     *
+     * @param pos a position object containing co-ordinates to move to
+     */
+    goTo: function(pos) {
+      ctx.moveTo(pos.x, pos.y);
     }
   };
 };
