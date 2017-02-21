@@ -35,6 +35,7 @@
  * @author ArtOfCode
  */
 window.canvio = {};
+var canvio = window.canvio;
 
 /**
  * Draws a line from the point at start to the point at end.
@@ -45,8 +46,8 @@ window.canvio = {};
  */
 canvio.drawLine = function(ctx, start, end) {
   ctx.beginPath();
-  ctx.moveTo(x1, y1);
-  ctx.lineTo(x2, y2);
+  ctx.moveTo(start.x, start.y);
+  ctx.lineTo(end.x, end.y);
   ctx.closePath();
 };
 
@@ -69,7 +70,7 @@ canvio.setOutlineColor = function(ctx, color) {
  * @param ctx   a CanvasRenderingContext2D object
  * @param color the color to use for fills. Must be a hex color code or recognized HTML color name.
  */
-canvio.setFillColor =  function(ctx, color) {
+canvio.setFillColor = function(ctx, color) {
   ctx.fillStyle = color;
 };
 
@@ -81,7 +82,7 @@ canvio.setFillColor =  function(ctx, color) {
  * @param radius a number providing the radius of the circle
  */
 canvio.drawCircle = function(ctx, center, radius) {
-    ctx.ellipse(center.x, center.y, radius, radius, 0, 0, 2 * Math.PI);
+  ctx.ellipse(center.x, center.y, radius, radius, 0, 0, 2 * Math.PI);
 };
 
 /**
@@ -122,15 +123,14 @@ canvio.Position = function(x, y) {
 };
 
 canvio.Image = function() {
-  var ctx, imageData;
+  var ctx;
+  var imageData;
 
   function checkWH(obj) {
     if (obj && obj.height && obj.width) {
       return true;
     }
-    else {
-      throw new Error("init() not called on new canvio.Image object");
-    }
+    throw new Error('init() not called on new canvio.Image object');
   }
 
   function setPixel(image, x, y, r, g, b, a) {
@@ -171,8 +171,7 @@ canvio.Image = function() {
 
 canvio.Turtle = function(context) {
   var ctx = context;
-  var color = "black";
-  var penState = "down";
+  var penState = 'down';
 
   var pos = {
     x: ctx.canvas.width / 2,
@@ -202,17 +201,17 @@ canvio.Turtle = function(context) {
 
   return {
     penDown: function() {
-      penState = "down";
+      penState = 'down';
     },
 
     penUp: function() {
-      penState = "up";
+      penState = 'up';
     },
 
     forward: function(amount) {
       pos.x += dx(tox(heading), amount);
       pos.y += dy(tox(heading), amount);
-      if (penState == "down") {
+      if (penState === 'down') {
         ctx.lineTo(pos.x, pos.y);
         ctx.stroke();
       }
@@ -234,7 +233,6 @@ canvio.Turtle = function(context) {
     },
 
     setColor: function(newColor) {
-      color = newColor;
       ctx.strokeStyle = newColor;
     },
 

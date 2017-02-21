@@ -8,5 +8,15 @@
   },
   "devDependencies": {
     "xo": "^0.17.0"
+  },
+  "xo": {
+    "envs": ["browser"],
+    "rules": {
+      "linebreak-style": 0,
+      "space-before-function-paren": 0,
+      "indent": ["error", 2],
+      "brace-style": ["error", "stroustrup"],
+      "max-params": ["error", 7]
+    }
   }
 }
