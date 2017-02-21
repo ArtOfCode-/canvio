@@ -1,6 +1,6 @@
 {
   "name": "canvio",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "repository": "https://github.com/ArtOfCode-/canvio",
   "license": "MIT",
   "scripts": {
@@ -10,13 +10,24 @@
     "xo": "^0.17.0"
   },
   "xo": {
-    "envs": ["browser"],
+    "envs": [
+      "browser"
+    ],
     "rules": {
       "linebreak-style": 0,
       "space-before-function-paren": 0,
-      "indent": ["error", 2],
-      "brace-style": ["error", "stroustrup"],
-      "max-params": ["error", 7]
+      "indent": [
+        "error",
+        2
+      ],
+      "brace-style": [
+        "error",
+        "stroustrup"
+      ],
+      "max-params": [
+        "error",
+        7
+      ]
     }
   }
 }
