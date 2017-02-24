@@ -149,10 +149,14 @@ canvio.Image = function() {
      * Initialises this instance with a canvas context, width, and height.
      *
      * @param context a CanvasRenderingContext2D object
-     * @param width the width of the image to be loaded
-     * @param height the height of the image to be loaded
+     * @param [width] the width of the image to be loaded
+     * @param [height] the height of the image to be loaded
      */
     init: function(context, width, height) {
+      if (!width && !height) {
+        width = context.canvas.width;
+        height = context.canvas.height;
+      }
       this.height = height;
       this.width = width;
       ctx = context;
