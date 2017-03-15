@@ -9,6 +9,17 @@ I may exaggerate. Slightly.
 
 -----
 
+## Installation/Usage
+To install, simply:
+
+    npm install canvio
+    
+To get access to it in your JS, you'll need to require the script directly:
+
+    require("canvio/canvio.min.js");
+
+-----
+
 ## Basic Functionality
 ### Images
 The `canvio.Image` type provides functionality for using or generating images on the canvas.
